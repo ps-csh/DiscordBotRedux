@@ -72,7 +72,8 @@ namespace DiscordBot.DiscordAPI.Structures.Voice
         /// <param name="userId"></param>
         /// <param name="channelId"></param>
         /// <param name="guildId"></param>
-        public DiscordVoiceStateStructure(string userId, string channelId, string? guildId = null)
+        /// <remarks>channelId may be null when disconnecting from a voice channel</remarks>
+        public DiscordVoiceStateStructure(string userId, string? channelId, string? guildId = null)
         {
             UserID = userId;
             ChannelID = channelId;

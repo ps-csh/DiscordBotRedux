@@ -23,6 +23,7 @@ namespace DiscordBot.Bot.Commands
         private const string NOT_ENOUGH_ARGS_REPONSE = "Command: {0} requires {1} arguments";
 
         private readonly Dictionary<string, BotCommand> _commands;
+        private readonly List<MentionResponse> _mentionCommands;
         private readonly string _botID;
         private readonly List<string> _commandIdentifiers;
         private readonly CommandParserService _commandParserService;
@@ -71,6 +72,7 @@ namespace DiscordBot.Bot.Commands
             }
         }
 
+        //Unused
         private CommandParameters? ParseDiscordMessageObject(DiscordMessageObjectStructure discordMessage)
         {
             // Don't respond to message from self
@@ -114,6 +116,7 @@ namespace DiscordBot.Bot.Commands
 
         public bool HasMention(DiscordMessageObjectStructure message)
         {
+            if (message.Mentions?.Exists(m => m.ID == _botID) ?? false) { return true; }
             return false;
         }
 

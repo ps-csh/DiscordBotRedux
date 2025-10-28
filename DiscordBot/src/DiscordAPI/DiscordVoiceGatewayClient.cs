@@ -16,6 +16,9 @@ using System.Threading.Tasks;
 using System.Timers;
 using WebSocket4Net;
 using Timer = System.Timers.Timer;
+using Concentus.Common;
+using Concentus.Structs;
+using Concentus.Enums;
 
 namespace DiscordBot.DiscordAPI
 {
@@ -29,7 +32,7 @@ namespace DiscordBot.DiscordAPI
     {
         /// <summary>
         /// Gateway version, range 1-4.
-        /// Discord recommeneds the most up-to-date version.
+        /// Discord recommends the most up-to-date version.
         /// Append ?v=4 to the gateway url
         /// //TODO: Move to appsettings
         /// </summary>
@@ -345,7 +348,7 @@ namespace DiscordBot.DiscordAPI
                 _voiceUDPClient?.Close();
                 _voiceUDPClient?.Dispose();
                 _voiceUDPClient = null;
-                WebSocket4Net.ClosedEventArgs closedEventArgs = e as WebSocket4Net.ClosedEventArgs;
+                WebSocket4Net.ClosedEventArgs? closedEventArgs = e as WebSocket4Net.ClosedEventArgs;
                 _logger.LogInfo($"Gateway closed by {sender}. {closedEventArgs?.Code}: {closedEventArgs?.Reason}");
                 _ioHandler.PrintMessage($"Gateway closed: {sender}. {closedEventArgs?.Code}: {closedEventArgs?.Reason}");
             }
@@ -358,6 +361,11 @@ namespace DiscordBot.DiscordAPI
         public void OnError(object? sender, SuperSocket.ClientEngine.ErrorEventArgs e)
         {
             _logger.LogException(e.Exception, "Voice gateway websocket received an error.");
+        }
+
+        private void SendAudioTask()
+        {
+            //var encoder = OpusMSEncoder.Create()
         }
     }
 }

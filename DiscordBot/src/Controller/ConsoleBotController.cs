@@ -14,6 +14,7 @@ namespace DiscordBot.src.Controller
         private const string STARTUP_COMMAND = "start";
         private const string STOP_COMMAND = "stop";
         private const string SHUTDOWN_COMMAND = "shutdown";
+        private const string HELP_COMMAND = "help";
 
         private readonly ConsoleIOHandler _handler;
         private readonly BotManager _botManager;
@@ -29,6 +30,9 @@ namespace DiscordBot.src.Controller
             _applicationLifetime.RegisterShuttingDownCallback(Shutdown);
         }
 
+        /// <summary>
+        /// Polls Command Line for user input
+        /// </summary>
         public void PollCommands()
         {
             _task ??= Task.Run(_handler.PollConsole);
@@ -63,6 +67,12 @@ namespace DiscordBot.src.Controller
                 case SHUTDOWN_COMMAND:
                     _handler.PrintMessage("Shutdown command received");
                     _applicationLifetime.Shutdown();
+                    break;
+                case HELP_COMMAND:
+                    _handler.PrintMessage($"{STARTUP_COMMAND}: Starts the BotManager\n" +
+                        $"{STOP_COMMAND}: Stops the BotManager\n" +
+                        $"{SHUTDOWN_COMMAND}: Terminates the application\n" +
+                        $"{HELP_COMMAND}: Displays commands\n");
                     break;
                 default:
                     _handler.PrintMessage($"Unknown command: {command}");

@@ -172,7 +172,7 @@ namespace DiscordBot
         {
             IsRunning = true;
 
-            _consoleIOHandler?.PrintMessage("Application running and awaiting input. Type shutdown to end.");
+            _consoleIOHandler?.PrintMessage("Application running and awaiting input. Type 'start' to startup bot, 'shutdown' to end.");
 
             _consoleIOHandler?.PrintMessage($"{_serviceProvider?.GetService<CommandHandler>()?.Commands.Keys.Count() ?? 0} commands loaded");
 

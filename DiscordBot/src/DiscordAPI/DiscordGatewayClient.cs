@@ -232,6 +232,11 @@ namespace DiscordBot.DiscordAPI
             _heartbeatTimer?.Stop();
         }
 
+        /// <summary>
+        /// Sends a voiceEvent to the Discord API to update voice channel state.
+        /// Sending a null channel in the state structure should have the bot leave a voice channel.
+        /// </summary>
+        /// <param name="voiceState"></param>
         public void SendVoiceUpdate(DiscordVoiceStateStructure voiceState)
         {
             _logger.LogInfo("Attempting to join/leave voice channel: " + voiceState.ChannelID);
